@@ -1,4 +1,4 @@
-import { Delivery } from 'src/delivery/delivery/delivery';
+import { Delivery } from 'src/delivery/delivery';
 import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany } from 'typeorm';
 
 @Entity()

@@ -1,4 +1,4 @@
-import { Zona } from "src/zonas/zona/zona";
+import { Zona } from "src/zonas/zona";
 import { PrimaryGeneratedColumn, Column, ManyToMany, Check } from "typeorm";
 
 @Check('"radius" > 0')
