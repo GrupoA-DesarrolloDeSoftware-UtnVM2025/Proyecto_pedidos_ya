@@ -1,4 +1,4 @@
-import { Zona } from "src/zonas/zona";
+import { Zone } from "src/zone/zone";
 import { PrimaryGeneratedColumn, Column, ManyToMany, Check } from "typeorm";
 
 @Check('"radius" > 0')
@@ -22,8 +22,8 @@ export class Delivery {
     @Column()
     status: string;
 
-    @ManyToMany(() => Zona, (zona) => zona.deliveries)
-    zonas: Zona[];
+    @ManyToMany(() => Zone, (zona) => zona.deliveries)
+    zonas: Zone[];
 }
 
 

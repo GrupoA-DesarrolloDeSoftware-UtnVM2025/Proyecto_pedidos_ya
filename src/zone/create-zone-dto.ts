@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsPositive, Matches, Min } from "class-validator";
 
-export class CreateZonaDto {
+export class CreateZoneDto {
     @IsNotEmpty()
     name: string;
 

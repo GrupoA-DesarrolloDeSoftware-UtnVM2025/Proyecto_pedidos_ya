@@ -4,9 +4,9 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { ZonasController } from './zonas/zonas.controller';
-import { ZonasService } from './zonas/zonas.service';
-import { ZonasModule } from './zonas/zonas.module';
+import { ZoneController } from './zone/zone.controller';
+import { ZoneService } from './zone/zone.service';
+import { ZoneModule } from './zone/zone.module';
 
 import { DeliveryController } from './delivery/delivery.controller';
 import { DeliveryService } from './delivery/delivery.service';
@@ -35,11 +35,11 @@ import { DeliveryModule } from './delivery/delivery.module';
         }),
     }),
 
-    ZonasModule,
+    ZoneModule,
     DeliveryModule,
     ],
 
-    controllers: [AppController, ZonasController, DeliveryController],
-    providers: [AppService, ZonasService, DeliveryService],
+    controllers: [AppController, ZoneController, DeliveryController],
+    providers: [AppService, ZoneService, DeliveryService],
 })
 export class AppModule {}

@@ -6,7 +6,7 @@ import { Entity, PrimaryGeneratedColumn, Column, Check, ManyToMany } from 'typeo
 @Check('"location" IS NOT NULL')
 @Check('"name" IS NOT NULL')
 
-export class Zona {
+export class Zone {
     @PrimaryGeneratedColumn()
     id: number;
 
