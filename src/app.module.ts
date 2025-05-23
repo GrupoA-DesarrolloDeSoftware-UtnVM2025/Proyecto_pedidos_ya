@@ -29,8 +29,8 @@ import { DeliveryModule } from './delivery/delivery.module';
             database: configService.get('DB_DATABASE'),
             entities: [__dirname + '/**/*.entity{.ts,.js}'],
             synchronize: true,
-            ssl: configService.get('DB_SSL') === 'true' 
-            ? { rejectUnauthorized: false }  // Azure acepta esto
+            ssl: configService.get('DB_SSL')
+            ? { rejectUnauthorized: false }
             : false,
         }),
     }),
