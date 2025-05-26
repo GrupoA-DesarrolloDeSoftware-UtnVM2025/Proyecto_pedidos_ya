@@ -13,12 +13,12 @@ export class Zone {
     @Column()
     name: string;
 
-    @Column()
+    @Column("jsonb")
     location: {latitude: number; longitude: number};
 
     @Column('float')
     radius: number;
 
-    @ManyToMany(() => Delivery, (delivery) => delivery.zonas)
+    @ManyToMany(() => Delivery, (delivery) => delivery.zones)
     deliveries: Delivery[];
 }
