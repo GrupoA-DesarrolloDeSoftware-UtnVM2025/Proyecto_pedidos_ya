@@ -1,15 +1,6 @@
 import {IsNotEmpty, IsNumber, IsObject, IsOptional, IsPositive, Matches, Min, ValidateNested} from "class-validator";
 import {Type} from "class-transformer";
-
-class LocationDto {
-    @IsNumber()
-    @IsNotEmpty({message: 'La latitud es obligatoria'})
-    latitude: number;
-
-    @IsNumber()
-    @IsNotEmpty({message: 'La longitud es obligatoria'})
-    longitude: number;
-}
+import {LocationDto} from "../location.dto";
 
 export class CreateZoneDto {
     @IsNotEmpty()

@@ -1,10 +1,6 @@
 import {IsNotEmpty, IsNumber, IsObject, IsOptional, IsPositive, IsString, Min, ValidateNested} from "class-validator";
 import {Type} from "class-transformer";
-
-class LocationDto {
-    latitude: number;
-    longitude: number;
-}
+import {LocationDto} from "../location.dto";
 
 export class PatchZoneDto {
     @IsString()
