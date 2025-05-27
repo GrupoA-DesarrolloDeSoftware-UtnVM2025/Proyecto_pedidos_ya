@@ -2,10 +2,10 @@ import {Injectable, NotFoundException} from '@nestjs/common';
 import {Repository} from "typeorm";
 import {ZoneEntity} from "../entities/zone.entity";
 import {InjectRepository} from "@nestjs/typeorm";
-import {CreateZoneDto} from "../interfaces/create/create-zone-dto";
-import {UpdateZoneDto} from "../interfaces/update/update-zone.dto";
+import {CreateZoneDto} from "../interfaces/create/createZone.dto";
+import {UpdateZoneDto} from "../interfaces/update/updateZone.dto";
 import {PaginationDto} from "../interfaces/pagination.dto";
-import {PatchZoneDto} from "../interfaces/patch/patch-zone.dto";
+import {PatchZoneDto} from "../interfaces/patch/patchZone.dto";
 
 @Injectable()
 export class ZoneService {

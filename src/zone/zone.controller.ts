@@ -1,10 +1,10 @@
 import {Body, Controller, Get, Post, Put, Patch, Delete, Query, Param} from '@nestjs/common';
 import {ZoneService} from "./zone.service";
-import {CreateZoneDto} from "../interfaces/create/create-zone-dto";
+import {CreateZoneDto} from "../interfaces/create/createZone.dto";
 import {ZoneEntity} from "../entities/zone.entity";
 import {PaginationDto} from "../interfaces/pagination.dto";
-import {UpdateZoneDto} from "../interfaces/update/update-zone.dto";
-import {PatchZoneDto} from "../interfaces/patch/patch-zone.dto";
+import {UpdateZoneDto} from "../interfaces/update/updateZone.dto";
+import {PatchZoneDto} from "../interfaces/patch/patchZone.dto";
 
 @Controller('zone')
 export class ZoneController {
