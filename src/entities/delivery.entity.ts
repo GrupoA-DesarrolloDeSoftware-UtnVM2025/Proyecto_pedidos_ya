@@ -1,12 +1,13 @@
-import { Zone } from "src/entities/zone";
-import { PrimaryGeneratedColumn, Column, ManyToMany, Check } from "typeorm";
+import { ZoneEntity } from "src/entities/zone.entity";
+import {PrimaryGeneratedColumn, Column, ManyToMany, Check, Entity} from "typeorm";
 
+@Entity({name: "delivery"})
 @Check('"radius" > 0')
 @Check('"location" IS NOT NULL')
 @Check('"perosonId" IS NOT NULL')
 @Check('"status" IS NOT NULL')
 
-export class Delivery {
+export class DeliveryEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -22,8 +23,8 @@ export class Delivery {
     @Column({default: "available"})
     status: string;
 
-    @ManyToMany(() => Zone, (zona) => zona.deliveries)
-    zones: Zone[];
+    @ManyToMany(() => ZoneEntity, (zone) => zone.deliveries)
+    zones: ZoneEntity[];
 }
 
 
