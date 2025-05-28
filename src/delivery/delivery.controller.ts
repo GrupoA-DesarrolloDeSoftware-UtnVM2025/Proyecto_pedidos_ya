@@ -6,6 +6,7 @@ import {PaginationDto} from "../interfaces/pagination.dto";
 import {UpdateDeliveryLocationDto} from "../interfaces/update/updateDeliveryLocation.dto";
 import {UpdateDeliveryStatusDto} from "../interfaces/update/updateDeliveryStatus.dto";
 import {AssignZoneDto} from "../interfaces/assignZone.dto";
+import {FindByProximityDto} from "../interfaces/find/findByProximity.dto";
 
 @Controller('delivery')
 export class DeliveryController {
@@ -54,6 +55,12 @@ export class DeliveryController {
     @Delete(":id/zone/:zoneId")
     removeZone(@Param('id') id: number, @Param('zoneId') zoneId: number): Promise<{message: string}> {
         return this.deliveryService.removeZone(id,zoneId);
+    }
+
+    @Post('findByProximity')
+    findByProximity(@Body() findByProximityDto: FindByProximityDto): Promise<DeliveryEntity[]> {
+        console.log("Empezando")
+        return this.deliveryService.findByProximity(findByProximityDto);
     }
 
 }

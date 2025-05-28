@@ -8,6 +8,7 @@ import {PaginationDto} from "../interfaces/pagination.dto";
 import {UpdateDeliveryLocationDto} from "../interfaces/update/updateDeliveryLocation.dto";
 import {UpdateDeliveryStatusDto} from "../interfaces/update/updateDeliveryStatus.dto";
 import {AssignZoneDto} from "../interfaces/assignZone.dto";
+import {FindByProximityDto} from "../interfaces/find/findByProximity.dto";
 
 @Injectable()
 export class DeliveryService {
@@ -89,6 +90,47 @@ export class DeliveryService {
 
         await this.deliveryRepository.save(delivery)
         return { message: "Zone removed from delivery" }
+    }
+
+    async findByProximity(findByProximityDto: FindByProximityDto): Promise<DeliveryEntity[]> {
+        console.log("Entrando a funcion")
+        const {location, radius} = findByProximityDto;
+
+        const deliveries = await this.deliveryRepository.find({relations: ["zones"]});
+
+        console.log(deliveries)
+
+        const filteredDeliveries = deliveries.filter((delivery) => {
+            const distance = this.calculateDistance(location.latitude, location.longitude, delivery.location.latitude, delivery.location.longitude)
+            console.log(distance)
+            return distance <= radius
+        })
+
+        console.log(filteredDeliveries)
+
+        return filteredDeliveries.sort((a, b) => {
+            const distanceA = this.calculateDistance(location.latitude, location.longitude, a.location.latitude, a.location.longitude)
+            const distanceB = this.calculateDistance(location.latitude, location.longitude, b.location.latitude, b.location.longitude)
+            return distanceA - distanceB
+        })
+    }
+
+
+    private calculateDistance(lat1: number, long1: number, lat2: number, long2: number): number {
+        const radius = 6371 //Radio de la tierra en km
+        const dLat = this.deg2rad(lat2-lat1);
+        const dLon = this.deg2rad(long2-long1);
+
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
+
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+        return radius * c
+    }
+
+    private deg2rad(deg: number): number {
+        return deg * (Math.PI /180)
     }
 
 
