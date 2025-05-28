@@ -38,7 +38,12 @@ export class DeliveryController {
 
     @Post(":id/assignZone")
     assignZone(@Param('id') id: number, @Body() assignZoneDto: AssignZoneDto): Promise<DeliveryEntity> {
-        return this.deliveryService.assignZone(id, assignZoneDto)
+        return this.deliveryService.assignZone(id, assignZoneDto);
+    }
+
+    @Get(':id/zones')
+    getZones(@Param('id') id: number): Promise<any[]> {
+        return this.deliveryService.getZones(id);
     }
 
 }

@@ -52,10 +52,10 @@ export class DeliveryService {
     }
 
     async assignZone(id: number, assignZoneDto: AssignZoneDto): Promise<DeliveryEntity> {
-        const delivery = await this.findOne(id)
+        const delivery = await this.findOne(id);
 
         // Get all zones
-        const zones = await Promise.all(assignZoneDto.zoneIds.map((zoneId) => this.zoneService.findById(zoneId)))
+        const zones = await Promise.all(assignZoneDto.zoneIds.map((zoneId) => this.zoneService.findById(zoneId)));
 
         // Assign zones to delivery
         if (!delivery.zones) {
@@ -64,6 +64,12 @@ export class DeliveryService {
             delivery.zones = [...delivery.zones, ...zones]
         }
 
-        return this.deliveryRepository.save(delivery)
+        return this.deliveryRepository.save(delivery);
+    }
+
+    async getZones(id: number): Promise<any[]> {
+        const delivery = await this.findOne(id);
+        return delivery.zones
+
     }
 }
