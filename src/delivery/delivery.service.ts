@@ -93,20 +93,16 @@ export class DeliveryService {
     }
 
     async findByProximity(findByProximityDto: FindByProximityDto): Promise<DeliveryEntity[]> {
-        console.log("Entrando a funcion")
         const {location, radius} = findByProximityDto;
 
         const deliveries = await this.deliveryRepository.find({relations: ["zones"]});
 
-        console.log(deliveries)
 
         const filteredDeliveries = deliveries.filter((delivery) => {
             const distance = this.calculateDistance(location.latitude, location.longitude, delivery.location.latitude, delivery.location.longitude)
-            console.log(distance)
             return distance <= radius
         })
 
-        console.log(filteredDeliveries)
 
         return filteredDeliveries.sort((a, b) => {
             const distanceA = this.calculateDistance(location.latitude, location.longitude, a.location.latitude, a.location.longitude)

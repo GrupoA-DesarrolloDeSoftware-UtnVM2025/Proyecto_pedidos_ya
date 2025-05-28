@@ -59,7 +59,6 @@ export class DeliveryController {
 
     @Post('findByProximity')
     findByProximity(@Body() findByProximityDto: FindByProximityDto): Promise<DeliveryEntity[]> {
-        console.log("Empezando")
         return this.deliveryService.findByProximity(findByProximityDto);
     }
 
