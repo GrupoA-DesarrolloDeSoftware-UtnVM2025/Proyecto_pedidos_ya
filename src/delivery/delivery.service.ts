@@ -70,6 +70,20 @@ export class DeliveryService {
     async getZones(id: number): Promise<any[]> {
         const delivery = await this.findOne(id);
         return delivery.zones
-
     }
+
+    async removeZone(id: number, zoneId: number): Promise<{message: string}> {
+        const delivery = await this.findOne(id)
+
+        // Verify zone exists
+        await this.zoneService.findById(zoneId)
+
+        // Remove zone from delivery
+        delivery.zones = delivery.zones.filter((zone) => zone.id !== zoneId)
+
+        await this.deliveryRepository.save(delivery)
+        return { message: "Zone removed from delivery" }
+    }
+
+
 }
