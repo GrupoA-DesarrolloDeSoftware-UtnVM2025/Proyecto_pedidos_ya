@@ -51,6 +51,12 @@ export class DeliveryService {
         return this.deliveryRepository.save(delivery)
     }
 
+    async remove(id: number): Promise<{message: string}> {
+        const delivery = await this.findOne(id);
+        await this.deliveryRepository.remove(delivery);
+        return {message: "Delivery deleted"}
+    }
+
     async assignZone(id: number, assignZoneDto: AssignZoneDto): Promise<DeliveryEntity> {
         const delivery = await this.findOne(id);
 

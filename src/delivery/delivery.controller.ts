@@ -36,6 +36,11 @@ export class DeliveryController {
         return this.deliveryService.updateStatus(id, updateStatusDto);
     }
 
+    @Delete(':id')
+    remove(@Param('id') id: number): Promise <{message: string}> {
+        return this.deliveryService.remove(id);
+    }
+
     @Post(":id/assignZone")
     assignZone(@Param('id') id: number, @Body() assignZoneDto: AssignZoneDto): Promise<DeliveryEntity> {
         return this.deliveryService.assignZone(id, assignZoneDto);
