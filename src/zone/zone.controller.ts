@@ -16,7 +16,7 @@ export class ZoneController {
     }
 
     @Get()
-    findAll(@Query() paginationDto: PaginationDto) {
+    findAll(@Query() paginationDto: PaginationDto): Promise<{zones: ZoneEntity[]; total: number}> {
         return this.zoneService.findAll(paginationDto);
     }
 

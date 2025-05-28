@@ -6,7 +6,7 @@ import {LocationDto} from "../location.dto";
 
 export class CreateDeliveryDto {
     @IsNumber()
-    @IsOptional()
+    @IsNotEmpty({message: "El id del repartidor debe colocarse"})
     perosonId: number;
 
     @IsObject()

@@ -1,7 +1,7 @@
 import { ZoneEntity } from "src/entities/zone.entity";
-import {PrimaryGeneratedColumn, Column, ManyToMany, Check, Entity} from "typeorm";
+import {PrimaryGeneratedColumn, Column, ManyToMany, Check, Entity, JoinTable} from "typeorm";
 
-@Entity({name: "delivery"})
+@Entity({name: "deliveryl"})
 @Check('"radius" > 0')
 @Check('"location" IS NOT NULL')
 @Check('"perosonId" IS NOT NULL')
@@ -24,6 +24,7 @@ export class DeliveryEntity {
     status: string;
 
     @ManyToMany(() => ZoneEntity, (zone) => zone.deliveries)
+    @JoinTable()
     zones: ZoneEntity[];
 }
 
