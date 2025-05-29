@@ -71,7 +71,6 @@ export class DeliveryController {
     @Get('findByZone')
     findByZone(@Query('id') id: number): Promise<DeliveryEntity[]> {
         const findByZoneDto: FindByZoneDto = { zoneId: id }
-        console.log(findByZoneDto)
         return this.deliveryService.findByZone(findByZoneDto);
     }
 
