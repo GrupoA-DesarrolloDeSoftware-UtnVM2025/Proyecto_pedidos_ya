@@ -9,6 +9,7 @@ import {UpdateDeliveryLocationDto} from "../interfaces/update/updateDeliveryLoca
 import {UpdateDeliveryStatusDto} from "../interfaces/update/updateDeliveryStatus.dto";
 import {AssignZoneDto} from "../interfaces/assignZone.dto";
 import {FindByProximityDto} from "../interfaces/find/findByProximity.dto";
+import {FindByZoneDto} from "../interfaces/find/findByZone.dto";
 
 @Injectable()
 export class DeliveryService {
@@ -109,6 +110,14 @@ export class DeliveryService {
             const distanceB = this.calculateDistance(location.latitude, location.longitude, b.location.latitude, b.location.longitude)
             return distanceA - distanceB
         })
+    }
+
+    async findByZone(findByZoneDto: FindByZoneDto): Promise<DeliveryEntity[]> {
+        const {zoneId} = findByZoneDto;
+
+        await this.zoneService.findById(zoneId);
+
+        return await this.deliveryRepository.createQueryBuilder("delivery").innerJoinAndSelect("delivery.zones", "zone").where("zone.id = :zoneId", {zoneId}).getMany();
     }
 
 

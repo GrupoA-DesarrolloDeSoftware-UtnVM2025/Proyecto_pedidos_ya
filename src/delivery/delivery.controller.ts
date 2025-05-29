@@ -7,6 +7,8 @@ import {UpdateDeliveryLocationDto} from "../interfaces/update/updateDeliveryLoca
 import {UpdateDeliveryStatusDto} from "../interfaces/update/updateDeliveryStatus.dto";
 import {AssignZoneDto} from "../interfaces/assignZone.dto";
 import {FindByProximityDto} from "../interfaces/find/findByProximity.dto";
+import {ZoneEntity} from "../entities/zone.entity";
+import {FindByZoneDto} from "../interfaces/find/findByZone.dto";
 
 @Controller('delivery')
 export class DeliveryController {
@@ -22,10 +24,7 @@ export class DeliveryController {
         return this.deliveryService.findAll(paginationDto);
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: number): Promise<DeliveryEntity> {
-        return this.deliveryService.findOne(id);
-    }
+
 
     @Put(":id/location")
     updateLocation(@Param("id") id: number, @Body() updateLocationDto: UpdateDeliveryLocationDto): Promise<DeliveryEntity> {
@@ -57,9 +56,28 @@ export class DeliveryController {
         return this.deliveryService.removeZone(id,zoneId);
     }
 
-    @Post('findByProximity')
-    findByProximity(@Body() findByProximityDto: FindByProximityDto): Promise<DeliveryEntity[]> {
+    @Get('findByProximity')
+    findByProximity(
+        @Query('latitude') latitude: number,
+        @Query('longitude') longitude: number,
+        @Query('radius') radius: number
+    ): Promise<DeliveryEntity[]> {
+
+        const findByProximityDto: FindByProximityDto = { location: { latitude, longitude }, radius}
         return this.deliveryService.findByProximity(findByProximityDto);
+
+    }
+
+    @Get('findByZone')
+    findByZone(@Query('id') id: number): Promise<DeliveryEntity[]> {
+        const findByZoneDto: FindByZoneDto = { zoneId: id }
+        console.log(findByZoneDto)
+        return this.deliveryService.findByZone(findByZoneDto);
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: number): Promise<DeliveryEntity> {
+        return this.deliveryService.findOne(id);
     }
 
 }
