@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, Post, Put, Query} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards} from '@nestjs/common';
 import {DeliveryService} from "./delivery.service";
 import {CreateDeliveryDto} from "../interfaces/create/createDelivery.dto";
 import {DeliveryEntity} from "../entities/delivery.entity";
@@ -9,6 +9,8 @@ import {AssignZoneDto} from "../interfaces/assignZone.dto";
 import {FindByProximityDto} from "../interfaces/find/findByProximity.dto";
 import {ZoneEntity} from "../entities/zone.entity";
 import {FindByZoneDto} from "../interfaces/find/findByZone.dto";
+import {Permissions} from "../middlewares/decorators/permissons.decorator";
+import {AuthGuard} from "../middlewares/auth.middleware";
 
 @Controller('delivery')
 export class DeliveryController {
@@ -19,6 +21,8 @@ export class DeliveryController {
         return this.deliveryService.create(createDeliveryDto);
     }
 
+    @UseGuards(AuthGuard)
+    @Permissions(['test2'])
     @Get()
     findAll(@Query() paginationDto: PaginationDto): Promise<{deliveries: DeliveryEntity[]; total: number}> {
         return this.deliveryService.findAll(paginationDto);
