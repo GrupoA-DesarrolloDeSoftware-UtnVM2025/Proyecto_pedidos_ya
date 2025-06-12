@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
             const token = request.headers.authorization.replace('Bearer ','');
             const permissions = this.reflector.get(Permissions, context.getHandler());
 
-            const baseURL = process.env.JWT_SERVICE || 'http://localhost:3001';
+            const baseURL = process.env.JWT_SERVICE_URL || 'http://localhost:3001';
             const response = await axios.get(`${baseURL}/can-do/${permissions}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
