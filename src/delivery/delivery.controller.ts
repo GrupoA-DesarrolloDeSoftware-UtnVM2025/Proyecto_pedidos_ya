@@ -7,7 +7,6 @@ import {UpdateDeliveryLocationDto} from "../interfaces/update/updateDeliveryLoca
 import {UpdateDeliveryStatusDto} from "../interfaces/update/updateDeliveryStatus.dto";
 import {AssignZoneDto} from "../interfaces/assignZone.dto";
 import {FindByProximityDto} from "../interfaces/find/findByProximity.dto";
-import {ZoneEntity} from "../entities/zone.entity";
 import {FindByZoneDto} from "../interfaces/find/findByZone.dto";
 import {Permissions} from "../middlewares/decorators/permissons.decorator";
 import {AuthGuard} from "../middlewares/auth.middleware";
