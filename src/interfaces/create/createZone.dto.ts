@@ -15,7 +15,7 @@ export class CreateZoneDto {
     @IsNotEmpty({message: 'El radio es obligatorio'})
     @IsNumber({},{message: 'El radio debe ser un número'})
     @IsPositive({message: 'El radio debe ser un número positivo'})
-    @Min(1, {message: 'El radio debe ser mayor a 0'})
+    @Min(0.1, {message: 'El radio debe ser mayor a 0'})
     radius: number;
 
     @IsOptional()

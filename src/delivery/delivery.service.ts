@@ -120,20 +120,25 @@ export class DeliveryService {
         return await this.deliveryRepository.createQueryBuilder("delivery").innerJoinAndSelect("delivery.zones", "zone").where("zone.id = :zoneId", {zoneId}).getMany();
     }
 
-
+    // fórmula del Haversine para calculo de distancia
     private calculateDistance(lat1: number, long1: number, lat2: number, long2: number): number {
         const radius = 6371 //Radio de la tierra en km
+
+        //Diferencia de latitud y longitud en radianes
         const dLat = this.deg2rad(lat2-lat1);
         const dLon = this.deg2rad(long2-long1);
 
+        //Variable intermedia a (funciones trigonometricas entre los puntos)
         const a =
             Math.sin(dLat / 2) * Math.sin(dLat / 2) +
             Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
 
+        //Variable intermedia c (angulo central entre los puntos)
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
         return radius * c
     }
 
+    //Pasar de grados a radianes
     private deg2rad(deg: number): number {
         return deg * (Math.PI /180)
     }
