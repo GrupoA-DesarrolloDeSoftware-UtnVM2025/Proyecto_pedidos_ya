@@ -8,6 +8,7 @@ import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
 import { Permissions } from './decorators/permissons.decorator';
 import axios from 'axios';
+import * as process from "node:process";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -20,7 +21,8 @@ export class AuthGuard implements CanActivate {
             const token = request.headers.authorization.replace('Bearer ','');
             const permissions = this.reflector.get(Permissions, context.getHandler());
 
-            const response = await axios.get(`http://localhost:3001/can-do/${permissions}`, {
+            const baseURL = process.env.JWT_SERVICE || 'http://localhost:3001';
+            const response = await axios.get(`${baseURL}/can-do/${permissions}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
