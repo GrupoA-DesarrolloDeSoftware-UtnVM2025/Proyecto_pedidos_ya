@@ -6,12 +6,12 @@ export class FindByProximityDto {
     @IsObject()
     @ValidateNested()
     @Type(() => LocationDto)
-    @IsNotEmpty({ message: "Los datos de ubicación son obligatorios" })
+    @IsNotEmpty({ message: "location data is mandatory" })
     location: LocationDto
 
-    @IsNumber()
-    @IsPositive({ message: "El radio debe ser un número positivo" })
-    @Min(1, { message: "El radio debe ser mayor a 0" })
-    @IsNotEmpty({ message: "El radio es obligatorio" })
+    @IsNumber({},{ message: "radius must be a number"})
+    @IsPositive({ message: "radius must be a positive number" })
+    @Min(0.1, { message: "radius must be greater than 0" })
+    @IsNotEmpty({ message: "radius is mandatory" })
     radius: number
 }

@@ -6,18 +6,18 @@ import {LocationDto} from "../location.dto";
 
 export class CreateDeliveryDto {
     @IsNumber()
-    @IsNotEmpty({message: "El id del repartidor debe colocarse"})
-    perosonId: number;
+    @IsNotEmpty({message: "personId is mandatory"})
+    personId: number;
 
     @IsObject()
     @ValidateNested()
     @Type(() => LocationDto)
-    @IsNotEmpty({message: 'Los datos de ubicación son obligatorios'})
+    @IsNotEmpty({message: 'location data is mandatory'})
     location: LocationDto;
 
-    @IsNotEmpty({message: 'El radio es obligatorio'})
-    @IsNumber({},{message: 'El radio debe ser un número'})
-    @IsPositive({message: 'El radio debe ser un número positivo'})
-    @Min(1, {message: 'El radio debe ser mayor a 0'})
+    @IsNotEmpty({message: 'radius is mandatory'})
+    @IsNumber({},{message: 'radius must be a number'})
+    @IsPositive({message: 'radius must be a positive number'})
+    @Min(0.1, {message: 'radius must be greater than 0'})
     radius: number;
 }
