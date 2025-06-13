@@ -38,7 +38,7 @@ export class DeliveryController {
 
     @UseGuards(AuthGuard)
     @Permissions(['delivery_edit'])
-    @Put("id/status")
+    @Put(":id/status")
     updateStatus(@Param("id") id: number, @Body() updateStatusDto: UpdateDeliveryStatusDto): Promise<DeliveryEntity> {
         return this.deliveryService.updateStatus(id, updateStatusDto);
     }
