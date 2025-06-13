@@ -9,15 +9,12 @@ export class CreateZoneDto {
     @IsObject()
     @ValidateNested()
     @Type(() => LocationDto)
-    @IsNotEmpty({message: 'Los datos de ubicación son obligatorios'})
+    @IsNotEmpty({message: 'location data is mandatory'})
     location: LocationDto;
 
-    @IsNotEmpty({message: 'El radio es obligatorio'})
-    @IsNumber({},{message: 'El radio debe ser un número'})
-    @IsPositive({message: 'El radio debe ser un número positivo'})
-    @Min(0.1, {message: 'El radio debe ser mayor a 0'})
+    @IsNotEmpty({message: 'radius is mandatory'})
+    @IsNumber({},{message: 'radius must be a number'})
+    @IsPositive({message: 'radius must be a positive number'})
+    @Min(0.1, {message: 'radius must be greater than 0'})
     radius: number;
-
-    @IsOptional()
-    deliveryId?: number;
 }

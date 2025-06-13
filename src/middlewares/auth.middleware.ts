@@ -22,18 +22,28 @@ export class AuthGuard implements CanActivate {
             const permissions = this.reflector.get(Permissions, context.getHandler());
 
             const baseURL = process.env.JWT_SERVICE_URL || 'http://localhost:3001';
-            const response = await axios.get(`${baseURL}/can-do/${permissions}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
 
-            });
-            if(response.data){
+            const requests = permissions.map((permission: string) =>
+                axios.get(`${baseURL}/can-do/${permission}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+            );
+            const results = await Promise.allSettled(requests);
+
+            // Verifica si al menos una respuesta es exitosa
+            const atLeastOneAllowed = results.some(result =>
+                result.status === 'fulfilled' && result.value.data
+            );
+
+            if (atLeastOneAllowed) {
                 return true;
-            } else{
+            } else {
                 throw new UnauthorizedException("error")
             }
+
         } catch (error) {
             let errorMessage = error?.message;
 
@@ -45,7 +55,6 @@ export class AuthGuard implements CanActivate {
                     status: error.response.status
                 });
             }
-
             throw new UnauthorizedException(errorMessage);
         }
     }

@@ -62,10 +62,10 @@ export class DeliveryService {
     async assignZone(id: number, assignZoneDto: AssignZoneDto): Promise<DeliveryEntity> {
         const delivery = await this.findOne(id);
 
-        // Get all zones
+        // Buscar todas las zonas que se pasaron en el dto
         const zones = await Promise.all(assignZoneDto.zoneIds.map((zoneId) => this.zoneService.findById(zoneId)));
 
-        // Assign zones to delivery
+        // Assignar todas las zonas a la entidad de delivery
         if (!delivery.zones) {
             delivery.zones = zones
         } else {
@@ -83,10 +83,10 @@ export class DeliveryService {
     async removeZone(id: number, zoneId: number): Promise<{message: string}> {
         const delivery = await this.findOne(id)
 
-        // Verify zone exists
+        // Verificar si la zona existe
         await this.zoneService.findById(zoneId)
 
-        // Remove zone from delivery
+        // Eliminar la relacion entre delivery y zona
         delivery.zones = delivery.zones.filter((zone) => zone.id !== zoneId)
 
         await this.deliveryRepository.save(delivery)
