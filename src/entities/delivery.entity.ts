@@ -1,7 +1,7 @@
 import { ZoneEntity } from "src/entities/zone.entity";
 import {PrimaryGeneratedColumn, Column, ManyToMany, Check, Entity, JoinTable} from "typeorm";
 
-@Entity({name: "deliveryl"})
+@Entity({name: "delivery"})
 @Check('"radius" > 0')
 @Check('"location" IS NOT NULL')
 @Check('"perosonId" IS NOT NULL')
@@ -12,7 +12,7 @@ export class DeliveryEntity {
     id: number;
 
     @Column()
-    perosonId: number;
+    personId: number;
 
     @Column("jsonb")
     location: {latitude: number; longitude: number};
