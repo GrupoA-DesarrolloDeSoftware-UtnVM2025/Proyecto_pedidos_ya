@@ -88,7 +88,7 @@ export class DeliveryController {
     @UseGuards(AuthGuard)
     @Permissions(['delivery_read'])
     @Get('findByZone')
-    findByZone(@Query('id') id: number): Promise<DeliveryEntity[]> {
+    findByZone(@Query('zoneId') id: number): Promise<DeliveryEntity[]> {
         const findByZoneDto: FindByZoneDto = { zoneId: id }
         return this.deliveryService.findByZone(findByZoneDto);
     }
