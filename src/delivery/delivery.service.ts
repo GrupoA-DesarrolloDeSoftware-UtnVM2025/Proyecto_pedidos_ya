@@ -62,10 +62,10 @@ export class DeliveryService {
     async assignZone(id: number, assignZoneDto: AssignZoneDto): Promise<DeliveryEntity> {
         const delivery = await this.findOne(id);
 
-        // Get all zones
+        // Buscar todas las zonas que se pasaron en el dto
         const zones = await Promise.all(assignZoneDto.zoneIds.map((zoneId) => this.zoneService.findById(zoneId)));
 
-        // Assign zones to delivery
+        // Assignar todas las zonas a la entidad de delivery
         if (!delivery.zones) {
             delivery.zones = zones
         } else {
@@ -83,10 +83,10 @@ export class DeliveryService {
     async removeZone(id: number, zoneId: number): Promise<{message: string}> {
         const delivery = await this.findOne(id)
 
-        // Verify zone exists
+        // Verificar si la zona existe
         await this.zoneService.findById(zoneId)
 
-        // Remove zone from delivery
+        // Eliminar la relacion entre delivery y zona
         delivery.zones = delivery.zones.filter((zone) => zone.id !== zoneId)
 
         await this.deliveryRepository.save(delivery)
@@ -120,20 +120,25 @@ export class DeliveryService {
         return await this.deliveryRepository.createQueryBuilder("delivery").innerJoinAndSelect("delivery.zones", "zone").where("zone.id = :zoneId", {zoneId}).getMany();
     }
 
-
+    // fórmula del Haversine para calculo de distancia
     private calculateDistance(lat1: number, long1: number, lat2: number, long2: number): number {
         const radius = 6371 //Radio de la tierra en km
+
+        //Diferencia de latitud y longitud en radianes
         const dLat = this.deg2rad(lat2-lat1);
         const dLon = this.deg2rad(long2-long1);
 
+        //Variable intermedia a (funciones trigonometricas entre los puntos)
         const a =
             Math.sin(dLat / 2) * Math.sin(dLat / 2) +
             Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
 
+        //Variable intermedia c (angulo central entre los puntos)
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
         return radius * c
     }
 
+    //Pasar de grados a radianes
     private deg2rad(deg: number): number {
         return deg * (Math.PI /180)
     }

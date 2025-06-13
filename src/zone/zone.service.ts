@@ -58,7 +58,7 @@ export class ZoneService {
     async remove(id: number): Promise<{ message: string }> {
         const zone = await this.findById(id);
         await this.zoneRepository.remove(zone);
-        return {message: 'Zona eliminada'};
+        return {message: 'Zone deleted'};
     }
 
 

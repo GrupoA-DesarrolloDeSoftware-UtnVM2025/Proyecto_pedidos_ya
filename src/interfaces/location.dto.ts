@@ -4,12 +4,12 @@ export class LocationDto {
     @IsNumber()
     @Min(-90)
     @Max(90)
-    @IsNotEmpty({message: 'La latitud es obligatoria'})
+    @IsNotEmpty({message: 'latitude is mandatory'})
     latitude: number;
 
     @IsNumber()
     @Min(-180)
     @Max(180)
-    @IsNotEmpty({message: 'La longitud es obligatoria'})
+    @IsNotEmpty({message: 'longitude is mandatory'})
     longitude: number;
 }
