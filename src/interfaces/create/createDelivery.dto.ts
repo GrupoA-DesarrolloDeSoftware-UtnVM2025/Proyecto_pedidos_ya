@@ -6,8 +6,8 @@ import {LocationDto} from "../location.dto";
 
 export class CreateDeliveryDto {
     @IsNumber()
-    @IsNotEmpty({message: "peronId is mandatory"})
-    perosonId: number;
+    @IsNotEmpty({message: "personId is mandatory"})
+    personId: number;
 
     @IsObject()
     @ValidateNested()

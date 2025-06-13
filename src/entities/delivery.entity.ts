@@ -12,7 +12,7 @@ export class DeliveryEntity {
     id: number;
 
     @Column()
-    perosonId: number;
+    personId: number;
 
     @Column("jsonb")
     location: {latitude: number; longitude: number};
