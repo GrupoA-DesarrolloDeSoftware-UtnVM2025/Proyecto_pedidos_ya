@@ -9,7 +9,7 @@ Este repositorio contiene el código fuente del trabajo práctico integrador del
 - [Dalmasso, Elías](https://github.com/EliasDalmasso)
 - [Lomello, Baltasar](https://github.com/Balti2003)
 - [Fumero, Ignacio](https://github.com/Ignaciofumero)
-- [Villareal, Camila](https://github.com/CamiiV)
+- [Villarreal, Camila](https://github.com/CamiiV)
 
 
 ## Variables de entorno
